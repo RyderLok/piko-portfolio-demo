@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Piko</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css?v=piko66" />
+</head>
+<body>
+
+<!-- Piko 舞台：固定 1055×834（Figma 设计基准），按窗口等比缩放 -->
+<div id="pikoStage">
+
+  <!-- ================================================================
+       P1 · SPLASH — 橙底 + 黄圆装饰（严格按设计稿）
+  ================================================================ -->
+  <div id="splashView" class="view piko-screen piko-splash">
+    <!-- 设计稿黄圆装饰 -->
+    <span class="splash-blob splash-blob-lg" aria-hidden="true"></span>
+    <span class="splash-blob splash-blob-tr" aria-hidden="true"></span>
+    <span class="splash-blob splash-blob-ml" aria-hidden="true"></span>
+    <span class="splash-blob splash-blob-br" aria-hidden="true"></span>
+
+    <img class="splash-logo" src="piko-assets/logo-piko.svg" alt="Piko" />
+    <span class="splash-spark splash-spark-1" aria-hidden="true"></span>
+    <span class="splash-spark splash-spark-2" aria-hidden="true"></span>
+    <span class="splash-spark splash-spark-3" aria-hidden="true"></span>
+    <p class="splash-slogan">Catch a sound. Make a world.</p>
+  </div>
+
+  <!-- ================================================================
+       P2 · COLLECT — 三磁贴入口（Draw / Input / My Gallery）
+  ================================================================ -->
+  <div id="collectView" class="view piko-screen piko-collect hidden">
+    <h1 class="piko-title">Collect</h1>
+    <p class="collect-lead">Insert the recorder into the drawing board to transfer your sound</p>
+
+    <button type="button" id="collectHistoryBtn" class="piko-round-btn is-filled collect-history-btn" title="录音历史" aria-label="录音历史">
+      <img src="piko-assets/icon-waveform.svg" alt="" aria-hidden="true" />
+    </button>
+
+    <div class="collect-tiles" id="collectTiles" aria-label="Collect carousel">
+      <button type="button" class="collect-tile is-slot-left" data-piko-go="draw" data-badge="3">
+        <span class="tile-badge">3</span>
+        <span class="tile-icon-wrap">
+          <img class="tile-icon-ring" src="piko-assets/tile-circle-side.svg" alt="" aria-hidden="true" />
+          <!-- piko-assets/icon-draw.svg 内联：笔杆单独一层，绕握持端做轻微擦碰 -->
+          <svg class="tile-icon-glyph tile-draw" viewBox="0 0 77.6899 71.8" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M41.8221 71.8H41.577C35.7775 71.7183 31.5299 67.6341 29.9779 60.7727C27.2824 48.6835 22.3813 49.1736 15.6016 49.9088C11.6808 50.3172 7.26985 50.8073 3.92082 47.785C1.22526 45.3345 0 41.2503 0 34.9606C0 15.6833 15.6833 0 34.9606 0C50.3989 0 64.2034 10.3738 68.5326 25.2403C69.0228 26.9556 68.0425 28.7527 66.3272 29.3245C64.6118 29.8146 62.8148 28.8344 62.243 27.119C58.7306 15.0298 47.5399 6.61638 34.9606 6.61638C19.2774 6.61638 6.5347 19.359 6.5347 35.0423C6.5347 40.5968 7.67827 42.4755 8.33174 43.0473C9.47531 44.1092 12.0892 43.7825 14.9481 43.5374C21.8912 42.8023 32.4284 41.6587 36.4309 59.4658C37.7379 65.347 40.7602 65.347 41.7404 65.4287H41.8221C48.5201 65.2653 59.139 55.2999 62.4064 42.6389C62.8965 40.9236 64.6118 39.8617 66.4089 40.2701C68.1242 40.7602 69.1861 42.4755 68.7777 44.2726C64.8569 59.0573 52.3593 71.8 41.8221 71.8Z" fill="#FDBF42"/>
+            <path d="M11.5174 31.6918C11.5174 32.4212 11.6611 33.1435 11.9402 33.8174C12.2193 34.4913 12.6285 35.1036 13.1443 35.6194C13.66 36.1352 14.2724 36.5443 14.9463 36.8235C15.6202 37.1026 16.3425 37.2463 17.0719 37.2463C17.8013 37.2463 18.5236 37.1026 19.1975 36.8235C19.8714 36.5443 20.4837 36.1352 20.9995 35.6194C21.5153 35.1036 21.9244 34.4913 22.2036 33.8174C22.4827 33.1435 22.6264 32.4212 22.6264 31.6918C22.6264 30.9624 22.4827 30.2401 22.2036 29.5662C21.9244 28.8923 21.5153 28.28 20.9995 27.7642C20.4837 27.2484 19.8714 26.8393 19.1975 26.5601C18.5236 26.281 17.8013 26.1373 17.0719 26.1373C16.3425 26.1373 15.6202 26.281 14.9463 26.5601C14.2724 26.8393 13.66 27.2484 13.1443 27.7642C12.6285 28.28 12.2193 28.8923 11.9402 29.5662C11.6611 30.2401 11.5174 30.9624 11.5174 31.6918Z" fill="#FDBF42"/>
+            <path d="M28.9977 18.786C28.9977 19.3331 29.1054 19.8748 29.3148 20.3803C29.5241 20.8857 29.831 21.3449 30.2178 21.7318C30.6047 22.1186 31.0639 22.4255 31.5693 22.6348C32.0748 22.8442 32.6165 22.9519 33.1635 22.9519C33.7106 22.9519 34.2523 22.8442 34.7577 22.6348C35.2632 22.4255 35.7224 22.1186 36.1093 21.7318C36.4961 21.3449 36.8029 20.8857 37.0123 20.3803C37.2217 19.8748 37.3294 19.3331 37.3294 18.786C37.3294 18.239 37.2217 17.6973 37.0123 17.1918C36.8029 16.6864 36.4961 16.2272 36.1093 15.8403C35.7224 15.4535 35.2632 15.1466 34.7577 14.9373C34.2523 14.7279 33.7106 14.6202 33.1635 14.6202C32.6165 14.6202 32.0748 14.7279 31.5693 14.9373C31.0639 15.1466 30.6047 15.4535 30.2178 15.8403C29.831 16.2272 29.5241 16.6864 29.3148 17.1918C29.1054 17.6973 28.9977 18.239 28.9977 18.786Z" fill="#FDBF42"/>
+            <path d="M46.9681 24.3423C46.9681 25.2521 47.3296 26.1248 47.973 26.7681C48.6163 27.4115 49.489 27.773 50.3988 27.773C51.3087 27.773 52.1813 27.4115 52.8247 26.7681C53.4681 26.1248 53.8296 25.2521 53.8296 24.3423C53.8296 23.4324 53.4681 22.5598 52.8247 21.9164C52.1813 21.273 51.3087 20.9115 50.3988 20.9115C49.489 20.9115 48.6163 21.273 47.973 21.9164C47.3296 22.5598 46.9681 23.4324 46.9681 24.3423Z" fill="#FDBF42"/>
+            <path class="tile-draw-brush" d="M39.2083 47.2995C37.8197 47.2995 36.5944 46.4826 36.1043 45.094C35.5325 43.3786 36.431 41.4999 38.1464 40.9281L73.3521 28.5939C75.0675 28.0221 76.9462 28.9206 77.518 30.636C78.0898 32.3513 77.1912 34.2301 75.4759 34.8018L40.2702 47.1361C39.8618 47.2178 39.535 47.2995 39.2083 47.2995Z" fill="#FDBF42"/>
+          </svg>
+        </span>
+        <span class="tile-label">Draw</span>
+      </button>
+
+      <button type="button" class="collect-tile is-slot-center" data-piko-go="input" data-badge="1">
+        <span class="tile-badge">1</span>
+        <span class="tile-icon-wrap">
+          <img class="tile-icon-ring" src="piko-assets/tile-circle-ring.svg" alt="" aria-hidden="true" />
+          <!-- piko-assets/icon-input.svg 内联：data-b 是从左到右的视觉序号，逐条做声波起伏 -->
+          <svg class="tile-icon-glyph tile-wave" viewBox="0 0 97.0001 89.4375" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path class="tile-wave-bar" data-b="4" d="M44.6635 44.9127C44.6635 31.5079 44.6397 18.0971 44.6992 4.69233C44.7052 3.58223 45.0031 2.34678 45.5632 1.40379C46.3378 0.090768 48.2444 -0.291197 49.7101 0.216108C51.152 0.723413 52.1709 2.07822 52.1947 3.77918C52.2364 7.18111 52.2007 10.589 52.2007 13.9969C52.1947 37.6731 52.1947 61.3494 52.1888 85.0256C52.1888 87.783 50.9375 89.3049 48.6555 89.4302C46.5523 89.5496 44.9137 88.1948 44.7469 86.0939C44.6397 84.769 44.6695 83.4381 44.6695 82.1071C44.6635 69.705 44.6635 57.3088 44.6635 44.9127Z" fill="#FDBF42"/>
+            <path class="tile-wave-bar" data-b="3" d="M37.3406 44.9101C37.3406 53.2657 37.3466 61.6153 37.3347 69.971C37.3347 72.215 36.3456 73.7131 34.6237 74.1607C32.0318 74.8351 29.8213 73.17 29.7796 70.3887C29.72 66.2945 29.7677 62.1943 29.7617 58.1C29.7558 45.5427 29.7438 32.9854 29.7438 20.4281C29.7438 19.7418 29.7438 19.0315 29.8928 18.3691C30.2741 16.6502 31.8709 15.4744 33.6405 15.5222C35.434 15.564 36.9235 16.7875 37.1857 18.5899C37.3466 19.688 37.3228 20.8161 37.3287 21.9321C37.3466 29.5895 37.3406 37.2468 37.3406 44.9101Z" fill="#FDBF42"/>
+            <path class="tile-wave-bar" data-b="5" d="M67.1438 44.9269C67.1438 53.3303 67.1498 61.7336 67.1379 70.137C67.1319 72.5004 65.8688 74.0522 63.8251 74.2909C61.6622 74.5416 59.9582 73.2107 59.6841 71.0501C59.6364 70.6801 59.6364 70.3101 59.6364 69.9341C59.6304 53.2348 59.6126 36.5295 59.6245 19.8302C59.6245 16.6073 62.1806 14.6975 64.8678 15.8672C66.542 16.5954 67.1438 17.9502 67.1379 19.7168C67.12 28.1202 67.1319 36.5235 67.1319 44.9269C67.1379 44.9269 67.1438 44.9269 67.1438 44.9269Z" fill="#FDBF42"/>
+            <path class="tile-wave-bar" data-b="2" d="M14.8413 45.629C14.8413 40.6813 14.8294 35.7335 14.8413 30.7918C14.8473 28.2194 16.3011 26.5722 18.5533 26.5245C20.7698 26.4767 22.3905 28.1419 22.3964 30.6963C22.4322 40.7469 22.4322 50.8035 22.4024 60.8541C22.3964 63.0922 20.7043 64.7932 18.6487 64.8051C16.4441 64.8171 14.8533 63.1817 14.8473 60.7885C14.8235 55.7333 14.8413 50.6782 14.8413 45.629Z" fill="#FDBF42"/>
+            <path class="tile-wave-bar" data-b="6" d="M74.5853 45.5856C74.5853 40.6379 74.5674 35.6901 74.5913 30.7424C74.6032 28.3849 75.8723 26.8332 77.916 26.5586C80.2099 26.2543 82.0629 27.9552 82.0808 30.4798C82.1106 34.7889 82.0868 39.098 82.0868 43.4071C82.0868 49.2083 82.0868 55.0035 82.0927 60.8047C82.0927 62.5236 81.3599 63.8008 79.7928 64.4872C78.339 65.1258 76.8077 64.899 75.8485 63.7173C75.1513 62.8578 74.6985 61.5508 74.6687 60.4287C74.5436 55.487 74.6151 50.5333 74.6151 45.5856C74.6092 45.5856 74.5972 45.5856 74.5853 45.5856Z" fill="#FDBF42"/>
+            <path class="tile-wave-bar" data-b="7" d="M96.9885 45.6737C96.9885 47.2135 97.0183 48.7534 96.9825 50.2872C96.9289 52.6148 95.4096 54.1129 93.1991 54.089C91.066 54.0651 89.5645 52.585 89.5228 50.329C89.4692 47.2553 89.4632 44.1757 89.499 41.102C89.5228 38.8042 91.1077 37.1927 93.2229 37.1808C95.3917 37.1748 96.8932 38.7027 96.9587 41.0602C97.0004 42.6 96.9647 44.1339 96.9647 45.6737C96.9706 45.6737 96.9766 45.6737 96.9885 45.6737Z" fill="#FDBF42"/>
+            <path class="tile-wave-bar" data-b="1" d="M7.54262 45.736C7.54262 47.3295 7.59029 48.929 7.53071 50.5166C7.44729 52.6831 5.83856 54.1632 3.69954 54.1334C1.6201 54.1035 0.0888311 52.6712 0.0471233 50.5166C-0.0184177 47.3295 -0.0184184 44.1365 0.0649973 40.9494C0.12458 38.6994 1.70948 37.2073 3.80679 37.2192C5.98751 37.2312 7.489 38.777 7.53667 41.1106C7.56646 42.6504 7.54262 44.1902 7.54262 45.736C7.53667 45.736 7.53667 45.736 7.54262 45.736Z" fill="#FDBF42"/>
+          </svg>
+        </span>
+        <span class="tile-label">Input</span>
+      </button>
+
+      <button type="button" class="collect-tile is-slot-right" data-piko-go="gallery" data-badge="2">
+        <span class="tile-badge">2</span>
+        <span class="tile-icon-wrap">
+          <img class="tile-icon-ring" src="piko-assets/tile-circle-side.svg" alt="" aria-hidden="true" />
+          <!-- piko-assets/icon-gallery.svg 内联：相纸微移 + 画框轻晃，像墙上挂画 -->
+          <svg class="tile-icon-glyph tile-gallery" viewBox="0 0 66.8571 71.3143" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" overflow="visible">
+            <rect class="tile-gallery-photo" x="14.3116" y="14.2557" width="38.2339" height="40.425" rx="1.2" fill="#FDBF42" opacity="0.42"/>
+            <path class="tile-gallery-frame" d="M62.8209 54.2051C59.4754 52.5881 59.5471 47.3328 61.4349 45.2403C63.6136 42.5528 64.7575 39.1801 64.6609 35.7285C64.7575 32.2769 63.6136 28.9041 61.4349 26.2167C59.571 24.1479 59.4276 18.8689 62.8209 17.2519C63.5678 16.8865 64.2403 16.3866 64.8043 15.7775C66.2448 13.9445 66.9601 11.6495 66.8148 9.32699C66.6694 7.00447 65.6736 4.81553 64.0157 3.17444C63.3233 2.3038 62.4562 1.58631 61.4696 1.06773C60.4831 0.549158 59.3988 0.240884 58.2858 0.162576C57.1729 0.0842665 56.0557 0.237641 55.0057 0.612916C53.9556 0.988191 52.9957 1.57713 52.1871 2.34216C51.6022 2.95996 51.1329 3.67665 50.8011 4.45853C50.4206 5.18818 49.8763 5.82078 49.2104 6.30723C48.5445 6.79368 47.7749 7.1209 46.9614 7.26349C46.1478 7.40608 45.3122 7.36022 44.5193 7.12945C43.7265 6.89869 42.9977 6.48923 42.3896 5.93286C41.2066 4.77903 39.8056 3.86978 38.2676 3.25757C36.7296 2.64536 35.0849 2.34233 33.4286 2.36594C31.7782 2.32029 30.1349 2.59926 28.5931 3.18687C27.0513 3.77447 25.6412 4.65915 24.4436 5.79018C23.8335 6.342 23.1045 6.74747 22.3125 6.97553C21.5205 7.20358 20.6865 7.24815 19.8745 7.10583C19.0625 6.96351 18.2941 6.63807 17.6281 6.15446C16.962 5.67085 16.4161 5.04191 16.0322 4.31585C15.7004 3.53397 15.231 2.81728 14.6462 2.19949C13.8376 1.43445 12.8776 0.845514 11.8276 0.470239C10.7775 0.0949644 9.66038 -0.0584102 8.54743 0.0198988C7.43448 0.0982078 6.35015 0.406481 5.3636 0.925056C4.37704 1.44363 3.50993 2.16112 2.81757 3.03177C1.15966 4.67285 0.163806 6.86179 0.0184859 9.18431C-0.126834 11.5068 0.588459 13.8018 2.02899 15.6349C2.59295 16.244 3.26543 16.7438 4.01237 17.1092C7.35784 18.7262 7.28615 23.9814 5.39835 26.074C3.21962 28.7615 2.07575 32.1342 2.17237 35.5858C2.07575 39.0374 3.21962 42.4101 5.39835 45.0976C7.26225 47.1664 7.40563 52.4454 4.01237 54.0624C3.26514 54.4273 2.59258 54.9272 2.02899 55.5367C0.588459 57.3698 -0.126834 59.6648 0.0184859 61.9873C0.163806 64.3098 1.15966 66.4988 2.81757 68.1398C3.50993 69.0105 4.37704 69.728 5.3636 70.2466C6.35015 70.7651 7.43448 71.0734 8.54743 71.1517C9.66038 71.23 10.7775 71.0766 11.8276 70.7014C12.8776 70.3261 13.8376 69.7372 14.6462 68.9721C15.231 68.3543 15.7004 67.6376 16.0322 66.8558C16.4126 66.1261 16.9569 65.4935 17.6228 65.0071C18.2887 64.5206 19.0583 64.1934 19.8719 64.0508C20.6854 63.9082 21.521 63.9541 22.3139 64.1848C23.1067 64.4156 23.8355 64.8251 24.4436 65.3814C25.6295 66.5381 27.0344 67.449 28.5767 68.0613C30.1191 68.6736 31.7682 68.9751 33.4286 68.9483C35.079 68.994 36.7222 68.715 38.264 68.1274C39.8059 67.5398 41.216 66.6551 42.4135 65.5241C43.0237 64.9723 43.7527 64.5668 44.5447 64.3388C45.3367 64.1107 46.1706 64.0661 46.9826 64.2085C47.7946 64.3508 48.5631 64.6762 49.2291 65.1598C49.8951 65.6434 50.441 66.2724 50.825 66.9984C51.1568 67.7803 51.6261 68.497 52.211 69.1148C53.0196 69.8798 53.9795 70.4688 55.0296 70.844C56.0796 71.2193 57.1968 71.3727 58.3097 71.2944C59.4227 71.2161 60.507 70.9078 61.4935 70.3892C62.4801 69.8707 63.3472 69.1532 64.0396 68.2825C65.6975 66.6414 66.6933 64.4525 66.8387 62.13C66.984 59.8074 66.2687 57.5125 64.8281 55.6794C64.2575 55.0675 63.5766 54.5674 62.8209 54.2051ZM52.5455 54.6807C52.5455 55.3114 52.2938 55.9162 51.8456 56.3621C51.3975 56.8081 50.7897 57.0586 50.1559 57.0586H16.7012C16.0675 57.0586 15.4597 56.8081 15.0115 56.3621C14.5634 55.9162 14.3116 55.3114 14.3116 54.6807V16.6336C14.3116 16.0029 14.5634 15.3981 15.0115 14.9521C15.4597 14.5062 16.0675 14.2557 16.7012 14.2557H50.1559C50.7897 14.2557 51.3975 14.5062 51.8456 14.9521C52.2938 15.3981 52.5455 16.0029 52.5455 16.6336V54.6807Z" fill="#FDBF42"/>
+          </svg>
+        </span>
+        <span class="tile-label">My Gallery</span>
+      </button>
+    </div>
+
+    <p id="collectStatus" class="collect-status">Waiting for recorder<span class="collect-status-dots">...</span></p>
+  </div>
+
+  <!-- ================================================================
+       P2b · COLLECT TRANSFER — Figma node 59:83 1:1
+       分层：黄丘 CSS / 笔 P3 / 设备 P2 / 波形 canvas / 进度与文案 DOM
+  ================================================================ -->
+  <div id="transferView" class="view piko-screen piko-transfer hidden">
+    <!-- Ellipse 61 -->
+    <div class="transfer-hill" aria-hidden="true"></div>
+
+    <!-- Ellipse 53 · 返回 -->
+    <button type="button" id="transferBackBtn" class="piko-round-btn is-filled transfer-back-btn" title="Back" aria-label="Back">
+      <img src="piko-assets/icon-chevron-left.svg" alt="" />
+    </button>
+
+    <!-- Collect 标题 -->
+    <h1 class="transfer-title">Collect</h1>
+
+    <!-- Group 115 · 录音笔 -->
+    <img class="transfer-pen" src="piko-assets/transfer-pen-p3.svg" alt="" width="95" height="108" draggable="false" />
+
+    <!-- Line 1 · 虚线指示 -->
+    <span class="transfer-dash" aria-hidden="true"></span>
+
+    <!-- Union · 当前上传声音波形 -->
+    <canvas id="transferWaveCanvas" class="transfer-wave" width="282" height="48" aria-hidden="true"></canvas>
+
+    <!-- Group 116 · 设备 -->
+    <div class="transfer-device-wrap">
+      <img class="transfer-device" src="piko-assets/transfer-device-p2.svg" alt="" width="530" height="405" draggable="false" />
+      <span class="transfer-port" aria-hidden="true"></span>
+    </div>
+
+    <!-- 进度 % · Pixelify Sans -->
+    <div id="transferProgressText" class="transfer-progress-text" aria-live="polite">0%</div>
+
+    <!-- 底文案 · 真实 DOM 文字（非 PNG） -->
+    <p id="transferStatus" class="transfer-status">Sending your sounds<span class="transfer-status-dots"><span class="transfer-status-dots-ghost">…</span><span id="transferStatusDots" class="transfer-status-dots-live" aria-hidden="true">...</span></span></p>
+  </div>
+
+  <!-- ================================================================
+       P2c · MY SOUNDS — 历史录音浏览 + 多选删除（Figma 132:25）
+  ================================================================ -->
+  <div id="mySoundsView" class="view piko-screen piko-my-sounds hidden">
+    <button type="button" id="mySoundsBackBtn" class="piko-round-btn piko-back-btn" title="返回">
+      <img src="piko-assets/icon-chevron-left.svg" alt="返回" />
+    </button>
+    <button type="button" id="mySoundsMenuBtn" class="piko-round-btn piko-my-sounds-menu-btn" title="多选" aria-label="多选" aria-pressed="false">
+      <img src="piko-assets/icon-checklist.svg" alt="" aria-hidden="true" />
+    </button>
+
+    <h1 class="piko-title">My sounds</h1>
+    <p class="sounds-lead">Let’s see what sounds you’ve collected!</p>
+
+    <div id="mySoundsSelectBar" class="gallery-select-bar my-sounds-select-bar hidden" aria-live="polite">
+      <span id="mySoundsSelectCount" class="gallery-select-count">0 selected</span>
+      <button type="button" id="mySoundsDeleteBtn" class="gallery-delete-btn">Delete</button>
+    </div>
+
+    <div id="mySoundsTrack" class="sounds-track"></div>
+  </div>
+
+  <!-- ================================================================
+       P3 · NEW SOUNDS — 录音卡片，勾选 1–5 段做笔刷（Figma 1:49）
+  ================================================================ -->
+  <div id="soundsView" class="view piko-screen piko-sounds hidden">
+    <h1 class="piko-title">New Sounds</h1>
+    <p class="sounds-lead">Pick 1–5 sounds to turn into brushes.</p>
+
+    <button type="button" id="soundsRecordBtn" class="piko-round-btn sounds-record-btn" title="返回 Collect">
+      <img src="piko-assets/icon-waveform.svg" alt="返回 Collect" />
+    </button>
+
+    <div id="soundsTrack" class="sounds-track"></div>
+
+    <p id="soundsCount" class="sounds-count">0 selected</p>
+    <button type="button" id="soundsNextBtn" class="piko-cta sounds-next-btn" disabled>Next Step</button>
+  </div>
+
+  <!-- ================================================================
+       P4 · TRANSFORM — 声音变笔刷的加载屏
+  ================================================================ -->
+  <div id="magicView" class="view piko-screen piko-magic hidden">
+    <button type="button" id="magicBackBtn" class="piko-round-btn piko-back-btn" title="返回">
+      <img src="piko-assets/icon-chevron-left.svg" alt="返回" />
+    </button>
+
+    <h1 class="piko-title">Transform</h1>
+    <p class="magic-lead" aria-label="A little sound magic is happening">
+      A little sound magic is happening<span class="magic-lead-dots" aria-hidden="true"><span>.</span><span class="magic-dot-2">.</span><span class="magic-dot-3">.</span></span>
+    </p>
+
+    <div class="magic-orb-wrap" id="magicOrbWrap">
+      <img class="magic-orb-glow" src="piko-assets/orb-glow.svg" alt="" aria-hidden="true" />
+      <img class="magic-orb" src="piko-assets/orb.png" alt="" aria-hidden="true" />
+    </div>
+
+    <div class="magic-pill">
+      <img class="magic-pill-star" src="piko-assets/icon-star.svg" alt="" aria-hidden="true" />
+      <span id="magicPillText">Brush Blooming</span>
+    </div>
+  </div>
+
+  <!-- ================================================================
+       P5 · SOUND BRUSH — 笔刷列表 + 预览 + Use Brush
+  ================================================================ -->
+  <div id="brushView" class="view piko-screen piko-brush hidden">
+    <button type="button" id="brushBackBtn" class="piko-round-btn piko-back-btn" title="返回">
+      <img src="piko-assets/icon-chevron-left.svg" alt="返回" />
+    </button>
+
+    <h1 class="piko-title piko-title-brush">Sound Brush</h1>
+    <p class="brush-col-title brush-col-left">Your Sound Brushes</p>
+    <p class="brush-col-title brush-col-right">Made From a Sound</p>
+
+    <div id="brushList" class="brush-list"></div>
+
+    <div class="brush-info-bar">
+      <span id="brushInfoName" class="brush-info-name">—</span>
+      <canvas id="brushInfoWave" class="brush-info-wave" width="137" height="30"></canvas>
+      <span id="brushInfoDur" class="brush-info-dur">00:00</span>
+    </div>
+    <p id="brushHeardHint" class="brush-heard-hint" aria-live="polite"></p>
+
+    <div id="brushPreview" class="brush-preview-panel" aria-label="Brush preview"></div>
+
+    <button type="button" id="brushUseBtn" class="piko-cta brush-use-btn">Use Brush</button>
+    <p id="brushPaletteCount" class="brush-palette-count">Add to palette: 0/5</p>
+  </div>
+
+  <!-- ================================================================
+       P7 · MY GALLERY — 已保存画纸作品
+  ================================================================ -->
+  <div id="galleryView" class="view piko-screen piko-gallery hidden">
+    <button type="button" id="galleryBackBtn" class="piko-round-btn piko-back-btn" title="返回">
+      <img src="piko-assets/icon-chevron-left.svg" alt="返回" />
+    </button>
+    <button type="button" id="galleryMenuBtn" class="piko-round-btn piko-gallery-menu-btn" title="多选" aria-label="多选" aria-pressed="false">
+      <img src="piko-assets/icon-checklist.svg" alt="" aria-hidden="true" />
+    </button>
+
+    <h1 class="piko-title">My Gallery</h1>
+    <div id="gallerySelectBar" class="gallery-select-bar hidden" aria-live="polite">
+      <span id="gallerySelectCount" class="gallery-select-count">0 selected</span>
+      <button type="button" id="galleryDeleteBtn" class="gallery-delete-btn">Delete</button>
+    </div>
+    <div id="galleryGrid" class="gallery-grid"></div>
+    <button type="button" id="galleryPrintBtn" class="piko-cta gallery-print-btn" disabled>Print</button>
+  </div>
+
+  <!-- ================================================================
+       P8 · PRINTING — 选中画布后打印（Figma 1:644）
+  ================================================================ -->
+  <div id="printingView" class="view piko-screen piko-printing hidden">
+    <div class="transfer-hill" aria-hidden="true"></div>
+    <h1 class="printing-title">Printing</h1>
+
+    <div class="printing-device-wrap">
+      <span class="printing-paper" aria-hidden="true"></span>
+      <img class="transfer-device" src="piko-assets/transfer-device-p2.svg" alt="" width="530" height="405" draggable="false" />
+      <span class="printing-port" aria-hidden="true"></span>
+    </div>
+
+    <div id="printingProgressText" class="transfer-progress-text printing-progress-text" aria-live="polite">0%</div>
+    <p class="transfer-status printing-status">Your artwork is coming to life<span class="transfer-status-dots"><span class="transfer-status-dots-ghost">…</span><span id="printingStatusDots" class="transfer-status-dots-live" aria-hidden="true">...</span></span></p>
+  </div>
+
+  <!-- Transform pipeline：无界面，仅保留 SoundTransformView 所需挂点 -->
+  <div id="transformView" class="view hidden" aria-hidden="true">
+    <span id="transformSampleName"></span>
+    <span id="transformMeta"></span>
+    <div id="transformStepIndicator"></div>
+    <div id="transformMain"></div>
+    <ol id="transformLogList"></ol>
+    <p id="transformFooterHint"></p>
+    <button id="transformContinueBtn" type="button" disabled hidden></button>
+  </div>
+
+  <!-- ANALYSIS / Canvas（Figma 1:298） -->
+  <div id="analysisView" class="view hidden">
+    <div id="pikoCanvasChrome" class="piko-canvas-chrome hidden">
+      <button type="button" id="pikoCanvasBackBtn" class="piko-round-btn piko-back-btn" title="返回">
+        <img src="piko-assets/icon-chevron-left.svg" alt="返回" />
+      </button>
+      <button type="button" id="pikoCanvasEraseBtn" class="piko-round-btn piko-erase-btn" title="橡皮">
+        <img src="piko-assets/icon-eraser.svg" alt="橡皮" />
+      </button>
+      <div id="pikoPalettePill" class="piko-palette-pill" role="listbox" aria-label="Brush palette"></div>
+      <button type="button" id="pikoCanvasSaveBtn" class="piko-round-btn piko-save-btn" title="保存到 My Gallery">
+        <img src="piko-assets/icon-save.svg" alt="保存" />
+      </button>
+    </div>
+    <div class="analysis-shell">
+      <div class="visual-generation-column">
+        <div id="canvasHolder" class="canvas-holder"></div>
+      </div>
+    </div>
+  </div><!-- /analysisView -->
+
+  <div id="systemStatusBar" class="system-status-bar" aria-live="polite">
+    <span id="esp32Status" class="sys-status-pill" data-state="disconnected">ESP32 offline</span>
+    <span id="pythonStatus" class="sys-status-pill" data-state="offline">Python · Offline</span>
+    <span id="pipelineStatus" class="sys-status-pill" data-state="idle">Brush Ready</span>
+  </div>
+
+  <details id="debugPanel" class="debug-panel collapsed">
+    <summary>Debug · Features &amp; Python fusion</summary>
+    <div id="debugPanelBody" class="debug-panel-body"></div>
+  </details>
+
+  <!-- 临时：本地上传弹窗 -->
+  <!-- 录音笔上传中断确认（放在 stage 末尾，盖住所有 .view） -->
+  <div id="transferAbortModal" class="transfer-abort-modal hidden" role="dialog" aria-modal="true" aria-labelledby="transferAbortTitle">
+    <div class="transfer-abort-backdrop" id="transferAbortBackdrop"></div>
+    <div class="transfer-abort-panel">
+      <p id="transferAbortTitle" class="transfer-abort-title">Stop the transfer?</p>
+      <p class="transfer-abort-desc">You’ll need to re-insert the recorder to upload again.</p>
+      <div class="transfer-abort-actions">
+        <button type="button" id="transferAbortCancelBtn" class="transfer-abort-btn transfer-abort-btn-ghost">Keep uploading</button>
+        <button type="button" id="transferAbortConfirmBtn" class="transfer-abort-btn transfer-abort-btn-solid">Stop</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="magicAbortModal" class="transfer-abort-modal hidden" role="dialog" aria-modal="true" aria-labelledby="magicAbortTitle">
+    <div class="transfer-abort-backdrop" id="magicAbortBackdrop"></div>
+    <div class="transfer-abort-panel">
+      <p id="magicAbortTitle" class="transfer-abort-title">Stop the analysis?</p>
+      <p class="transfer-abort-desc">AI is still turning your sounds into brushes. You’ll need to start again.</p>
+      <div class="transfer-abort-actions">
+        <button type="button" id="magicAbortCancelBtn" class="transfer-abort-btn transfer-abort-btn-ghost">Keep going</button>
+        <button type="button" id="magicAbortConfirmBtn" class="transfer-abort-btn transfer-abort-btn-solid">Stop</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="uploadModal" class="upload-modal hidden" role="dialog" aria-modal="true" aria-labelledby="uploadModalTitle">
+    <div class="upload-modal-backdrop" id="uploadModalBackdrop"></div>
+    <div class="upload-modal-panel">
+      <div class="upload-modal-header">
+        <h2 id="uploadModalTitle" class="upload-modal-title">上传本地音频</h2>
+        <button id="closeUploadModalBtn" type="button" class="upload-modal-close" aria-label="关闭">×</button>
+      </div>
+      <p class="upload-modal-desc">临时调试入口：选择或拖入 WAV / MP3 / M4A 等音频，导入后进入 Transform 流程。</p>
+      <div id="uploadZone" class="upload-zone upload-zone-modal is-open" tabindex="0">
+        <input id="audioFileInput" type="file" accept="audio/*,.wav,.mp3,.m4a,.ogg,.flac,.aac,.webm" hidden />
+        <div class="upload-inner">
+          <div class="upload-icon-wrap" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+              <path d="M12 3v12"/><path d="M7 8l5-5 5 5"/><path d="M5 21h14"/>
+            </svg>
+          </div>
+          <p class="upload-prompt">拖放音频到此处，或 <button type="button" class="upload-link" id="uploadBrowseBtn">浏览文件</button></p>
+          <p class="upload-hint">支持常见音频格式 · 仅本地处理，不上传服务器</p>
+        </div>
+      </div>
+      <p id="uploadStatus" class="upload-status" aria-live="polite"></p>
+    </div>
+  </div>
+
+
+  <!-- 声学分析窗口：声音 → 波形 / 频谱 / 声谱图 -->
+  <div id="acousticAnalysisModal" class="acoustic-analysis-modal hidden" role="dialog" aria-modal="true" aria-labelledby="acousticWinTitle">
+    <div class="acoustic-win-backdrop" id="acousticWinBackdrop"></div>
+    <div class="acoustic-win-panel">
+      <header class="acoustic-win-header">
+        <div class="acoustic-win-title-block">
+          <p class="acoustic-win-label">Piko · 声学分析</p>
+          <h2 id="acousticWinTitle" class="acoustic-win-title">—</h2>
+          <p id="acousticWinMeta" class="acoustic-win-meta"></p>
+        </div>
+        <button id="acousticWinCloseBtn" type="button" class="acoustic-win-close" aria-label="关闭">×</button>
+      </header>
+
+      <div id="acousticWinLoading" class="acoustic-win-loading">
+        <div class="acoustic-win-spinner" aria-hidden="true"></div>
+        <p>Python 正在生成波形、频谱与声谱图…</p>
+      </div>
+
+      <div id="acousticWinBody" class="acoustic-win-body hidden">
+        <p id="acousticWinHint" class="acoustic-win-hint"></p>
+
+        <div class="acoustic-win-grid">
+          <div class="acoustic-win-chart">
+            <p class="acoustic-win-chart-label">Waveform · 波形</p>
+            <canvas id="acousticWinWave" width="880" height="120"></canvas>
+          </div>
+          <div class="acoustic-win-chart">
+            <p class="acoustic-win-chart-label">Spectrogram · 语谱图</p>
+            <canvas id="acousticWinSpec" width="880" height="180"></canvas>
+          </div>
+          <div class="acoustic-win-chart">
+            <p class="acoustic-win-chart-label">Spectrum · 频谱</p>
+            <canvas id="acousticWinSpectrum" width="880" height="120"></canvas>
+          </div>
+        </div>
+
+        <div class="acoustic-win-actions">
+          <button id="acousticWinBrushBtn" type="button" class="acoustic-win-btn primary">应用 Brush → p5 视效</button>
+          <button id="acousticWinTransformBtn" type="button" class="acoustic-win-btn hidden">继续 Transform →</button>
+        </div>
+        <div id="acousticWinExport" class="acoustic-win-export hidden"></div>
+      </div>
+    </div>
+  </div>
+
+
+</div><!-- /pikoStage -->
+
+  <!-- Scripts — load order matters -->
+  <script src="pikoStage.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/addons/p5.sound.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+  <script src="wavEncoder.js"></script>
+  <script src="esp32Metrics.js"></script>
+  <script src="featureSchema.js"></script>
+  <script src="sampleLibraryStore.js"></script>
+  <script src="galleryStore.js?v=2"></script>
+  <script src="plateManager.js?v=3"></script>
+  <script src="brushSchema.js"></script>
+  <script src="visualParamFusion.js"></script>
+  <script src="pikoCloudConfig.js?v=5"></script>
+  <script src="soundsApiClient.js?v=12"></script>
+  <script src="fieldRecorder.js?v=9"></script>
+  <script src="esp32AudioAdapter.js?v=10"></script>
+  <script src="pythonEnhancementClient.js?v=2"></script>
+  <script src="serviceConnectionManager.js?v=7"></script>
+  <script src="acousticAnalysisWindow.js"></script>
+  <script src="soundColorEngine.js?v=2"></script>
+  <script src="naturalSoundArchetypes.js"></script>
+  <script src="visualPipeline.js"></script>
+  <script src="soundPersonalityAI.js"></script>
+  <script src="visualMapping.js"></script>
+  <script src="visualTransformation.js"></script>
+  <script src="generativeField.js"></script>
+  <script src="playbackAnalyzer.js"></script>
+  <script src="acousticBreathingDriver.js"></script>
+  <script src="featureDebug.js"></script>
+  <script src="membraneSphere.js"></script>
+  <script src="sampleAnalyzer.js"></script>
+  <script src="soundTransformView.js?v=2"></script>
+  <script src="brushGenerator.js?v=fix-ink-3"></script>
+  <script src="canvasInteraction.js?v=piko15"></script>
+  <script src="app.js?v=16"></script>
+  <script src="sketch.js?v=2"></script>
+  <!-- Piko 新界面：屏幕脚本 + 路由（路由放最后，接管初始显示哪一屏） -->
+  <script src="pikoMySoundsScreen.js?v=2"></script>
+  <script src="pikoSoundsScreen.js?v=10"></script>
+  <script src="pikoOrb.js?v=32"></script>
+  <script src="pikoMagicScreen.js?v=11"></script>
+  <script src="pikoBrushScreen.js?v=11"></script>
+  <script src="pikoCanvasScreen.js?v=14"></script>
+  <script src="pikoGalleryScreen.js?v=6"></script>
+  <script src="pikoTransferScreen.js?v=18"></script>
+  <script src="pikoPrintingScreen.js?v=1"></script>
+  <script src="pikoCollectCarousel.js?v=12"></script>
+  <script src="pikoRouter.js?v=10"></script>
+  <script src="pikoDemo.js?v=1"></script>
+</body>
+</html>
